@@ -30,5 +30,12 @@ public class User {
     @DBRef
     @Field(value = "roles")
     private Collection<Role> roles;
+
+    public User(String username, Key password, boolean enabled, Collection<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
+    }
 }
 

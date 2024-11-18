@@ -16,4 +16,8 @@ public class Role {
 
     @Field(value = "name")
     private String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

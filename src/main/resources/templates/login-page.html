@@ -15,7 +15,7 @@
                         <h3 class="text-center text-primary mb-4">Вхід до системи</h3>
 
                         <!-- Форма входу -->
-                        <form action="#" th:action="@{/login}" method="post">
+                        <form action="#" th:action="@{/authenticateTheUser}" method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Логін</label>
                                 <input type="text" id="username" name="username" class="form-control" th:value="${username}">

@@ -16,4 +16,8 @@ public class Key {
 
     @Field(value = "password")
     private String password;
+
+    public Key(String password) {
+        this.password = password;
+    }
 }
