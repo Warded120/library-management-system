@@ -17,11 +17,7 @@ public class KeyServiceImpl implements KeyService {
 
     @Override
     public Key save(Key key) {
-        if (!key.getPassword().contains("{noop}")) {
-            key.setPassword("{noop}" + key.getPassword());
-        }
         return keyRepository.save(key);
-
     }
 
     @Override

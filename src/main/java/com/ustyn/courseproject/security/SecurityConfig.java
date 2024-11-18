@@ -5,24 +5,33 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
 
-    //authenticationProvider bean definition
+    PasswordEncoder passwordEncoder;
+
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+    public DaoAuthenticationProvider authenticationProvider(UserService userService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService); //set the custom user details service
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder);
         return auth;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PlainTextPasswordEncoder(); // Use plain-text encoder
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
@@ -32,7 +41,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
 
-                .logout(logout -> logout.permitAll())
+                .logout(LogoutConfigurer::permitAll)
 
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedPage("/access-denied")
