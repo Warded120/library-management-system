@@ -2,12 +2,9 @@ package com.ustyn.courseproject.service;
 import com.ustyn.courseproject.entity.user.Key;
 import com.ustyn.courseproject.entity.user.Role;
 import com.ustyn.courseproject.entity.user.User;
-import com.ustyn.courseproject.entity.user.CustomUserDetails;
 import com.ustyn.courseproject.repository.RoleRepository;
 import com.ustyn.courseproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -61,13 +58,5 @@ public class UserServiceImpl implements UserService {
         roleRepository.deleteAllById(user.getRoles().stream().map(Role::getId).toList());
         keyService.delete(user.getPassword());
         userRepository.delete(user);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        User user = userRepository.findByUsername(username);
-
-        return new CustomUserDetails(user);
     }
 }

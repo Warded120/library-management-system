@@ -15,13 +15,9 @@ public class SecurityConfig {
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
 
+    // Remove the constructor injection of UserService here
     public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
         this.customAuthenticationProvider = customAuthenticationProvider;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new PlainTextPasswordEncoder();
     }
 
     @Bean
@@ -31,27 +27,17 @@ public class SecurityConfig {
                         .requestMatchers("/home").authenticated()
                         .anyRequest().permitAll()
                 )
-
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/authenticateTheUser")
                         .successHandler(customAuthenticationSuccessHandler)
                         .permitAll()
                 )
-
                 .logout(LogoutConfigurer::permitAll)
-
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedPage("/access-denied")
                 );
 
         return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(customAuthenticationProvider) // Add your custom authentication provider here
-                .build();
     }
 }
