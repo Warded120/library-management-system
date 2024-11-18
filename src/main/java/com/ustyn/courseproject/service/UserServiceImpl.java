@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service;
 import com.ustyn.courseproject.entity.user.User;
-import com.ustyn.courseproject.entity.user.UserPrincipal;
+import com.ustyn.courseproject.entity.user.CustomUserDetails;
 import com.ustyn.courseproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +27,6 @@ public class UserServiceImpl implements UserService {
 
         User user = repo.findByUsername(username);
 
-        return new UserPrincipal(user);
+        return new CustomUserDetails(user);
     }
 }
