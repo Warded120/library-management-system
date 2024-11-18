@@ -1,0 +1,34 @@
+package com.ustyn.courseproject.entity.user;
+
+import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Collection;
+
+@NoArgsConstructor
+@Data
+@Document(collection = "users")
+public class User {
+
+    @Id
+    private String id;
+
+    @Field(value = "username")
+    private String username;
+
+    @DBRef
+    @Field(value = "password")
+    private Key password;
+
+    @Field(value = "enabled")
+    private boolean enabled = true;
+
+    @DBRef
+    @Field(value = "roles")
+    private Collection<Role> roles;
+}
+
