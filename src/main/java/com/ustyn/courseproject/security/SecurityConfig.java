@@ -3,7 +3,8 @@ package com.ustyn.courseproject.security;
 import com.ustyn.courseproject.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,26 +13,23 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    PasswordEncoder passwordEncoder;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserService userService, PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(passwordEncoder);
-        return auth;
+    public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
+        this.customAuthenticationProvider = customAuthenticationProvider;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new PlainTextPasswordEncoder(); // Use plain-text encoder
+        return new PlainTextPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
-                    .anyRequest().authenticated()
+                        .requestMatchers("/home").authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 .formLogin(form -> form
@@ -45,8 +43,15 @@ public class SecurityConfig {
 
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedPage("/access-denied")
-        );
+                );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .authenticationProvider(customAuthenticationProvider) // Add your custom authentication provider here
+                .build();
     }
 }

@@ -28,9 +28,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         Key key = new Key("Test123");
-        User adminUser = new User("admin", key, true, List.of(new Role("ADMIN")));
+        User adminUser = new User("admin", key, true, List.of(new Role("ROLE_ADMIN")));
         userService.save(adminUser);
-
-        System.out.println("Default admin user created.");
     }
 }

@@ -1,15 +1,9 @@
 package com.ustyn.courseproject.controller;
 
-import com.ustyn.courseproject.entity.user.Key;
-import com.ustyn.courseproject.entity.user.Role;
-import com.ustyn.courseproject.entity.user.User;
 import com.ustyn.courseproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class LoginController {
@@ -29,5 +23,10 @@ public class LoginController {
     @GetMapping("/home")
     public String home() {
         return "home-page";
+    }
+
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied-page";
     }
 }
