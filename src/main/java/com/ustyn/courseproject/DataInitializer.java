@@ -22,13 +22,22 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        if (userService.existsByUsername("admin")) {
-            userService.deleteByUsername("admin");
+        if(!userService.existsByUsername("admin")) {
+            Key key1 = new Key("Test123");
+            User adminUser = new User("admin", key1, true, List.of(new Role("ROLE_ADMIN")));
+            userService.save(adminUser);
         }
 
-        Key key = new Key("Test123");
-        User adminUser = new User("admin", key, true, List.of(new Role("ROLE_ADMIN")));
-        userService.save(adminUser);
+        if(!userService.existsByUsername("operator")) {
+            Key key2 = new Key("Something");
+            User operatorUser = new User("operator", key2, true, List.of(new Role("ROLE_OPERATOR")));
+            userService.save(operatorUser);
+        }
+
+        if(!userService.existsByUsername("guest")) {
+            Key key3 = new Key("BibaBoba");
+            User guestUser = new User("guest", key3, true, List.of(new Role("ROLE_GUEST")));
+            userService.save(guestUser);
+        }
     }
 }
