@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.security;
+package com.ustyn.courseproject.config;
 
 
 import jakarta.servlet.http.HttpServletRequest;

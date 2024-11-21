@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.service;
+package com.ustyn.courseproject.service.key;
 
 import com.ustyn.courseproject.entity.user.Key;
 import com.ustyn.courseproject.repository.KeyRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KeyServiceImpl implements KeyService {
 
-    KeyRepository keyRepository;
+    private final KeyRepository keyRepository;
 
     @Autowired
     public KeyServiceImpl(KeyRepository keyRepository) {

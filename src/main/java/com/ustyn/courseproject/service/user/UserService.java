@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.service;
+package com.ustyn.courseproject.service.user;
 
 import com.ustyn.courseproject.entity.user.User;
 

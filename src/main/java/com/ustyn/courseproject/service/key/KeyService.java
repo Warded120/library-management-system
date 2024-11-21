@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.service;
+package com.ustyn.courseproject.service.key;
 
 import com.ustyn.courseproject.entity.user.Key;
 

@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.security;
+package com.ustyn.courseproject.config.passwordEncoder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,9 +1,10 @@
-package com.ustyn.courseproject.service;
+package com.ustyn.courseproject.service.user;
 import com.ustyn.courseproject.entity.user.Key;
 import com.ustyn.courseproject.entity.user.Role;
 import com.ustyn.courseproject.entity.user.User;
 import com.ustyn.courseproject.repository.RoleRepository;
 import com.ustyn.courseproject.repository.UserRepository;
+import com.ustyn.courseproject.service.key.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ import java.util.Collection;
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
-    KeyService keyService;
-    RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final KeyService keyService;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
