@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,5 +60,10 @@ public class UserServiceImpl implements UserService {
         roleRepository.deleteAllById(user.getRoles().stream().map(Role::getId).toList());
         keyService.delete(user.getPassword());
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
