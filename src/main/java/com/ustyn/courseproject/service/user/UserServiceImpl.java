@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
         Key savedKey = keyService.save(key);
         user.setPassword(savedKey);
 
-        Collection<Role> roles = user.getRoles();
-        Collection<Role> savedRoles = roleRepository.saveAll(roles);
+        List<Role> roles = user.getRoles();
+        List<Role> savedRoles = roleRepository.saveAll(roles);
         user.setRoles(savedRoles);
 
         // Save the User
@@ -65,5 +65,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User findById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        userRepository.deleteById(id);
     }
 }

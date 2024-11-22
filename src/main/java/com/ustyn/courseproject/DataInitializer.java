@@ -1,5 +1,6 @@
 package com.ustyn.courseproject;
 
+import com.ustyn.courseproject.constants.Roles;
 import com.ustyn.courseproject.document.Ticket;
 import com.ustyn.courseproject.document.literature.Article;
 import com.ustyn.courseproject.document.literature.Book;
@@ -61,17 +62,17 @@ public class DataInitializer implements CommandLineRunner {
     private void addUsers() {
         if(!userService.existsByUsername("admin")) {
             Key key1 = new Key("Test123");
-            User adminUser = new User("admin", key1, true, List.of(new Role("ROLE_ADMIN")));
+            User adminUser = new User("admin", key1, true, List.of(new Role(Roles.ROLE_ADMIN.getValue())));
             userService.save(adminUser);
         }
         if(!userService.existsByUsername("operator")) {
             Key key2 = new Key("Something");
-            User operatorUser = new User("operator", key2, true, List.of(new Role("ROLE_OPERATOR")));
+            User operatorUser = new User("operator", key2, true, List.of(new Role(Roles.ROLE_OPERATOR.getValue())));
             userService.save(operatorUser);
         }
         if(!userService.existsByUsername("guest")) {
             Key key3 = new Key("BibaBoba");
-            User guestUser = new User("guest", key3, true, List.of(new Role("ROLE_GUEST")));
+            User guestUser = new User("guest", key3, true, List.of(new Role(Roles.ROLE_GUEST.getValue())));
             userService.save(guestUser);
         }
 
