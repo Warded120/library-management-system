@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.repository;
 
-import com.ustyn.courseproject.entity.user.User;
+import com.ustyn.courseproject.document.user.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
