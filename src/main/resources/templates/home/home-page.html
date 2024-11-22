@@ -31,10 +31,9 @@
                     <a class="nav-link btn btn-outline-primary me-2 px-4 m-1" th:href="@{/about-us}" role="button">Про нас</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary me-2 px-4 m-1" th:href="@{/about-us}" role="button">Дія 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary me-2 px-4 m-1" th:href="@{/about-us}" role="button">Дія 3</a>
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <input class="nav-link btn btn-outline-danger me-2 px-4 m-1" type="submit" value="Вийти">
+                    </form>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle btn btn-outline-primary me-2 px-4 m-1" href="#" id="navbarDropdown"

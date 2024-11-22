@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.reader;
 
-import com.ustyn.courseproject.entity.reader.Reader;
+import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

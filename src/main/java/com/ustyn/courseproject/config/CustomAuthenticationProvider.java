@@ -1,7 +1,7 @@
 package com.ustyn.courseproject.config;
 
-import com.ustyn.courseproject.entity.user.Role;
-import com.ustyn.courseproject.entity.user.User;
+import com.ustyn.courseproject.document.user.Role;
+import com.ustyn.courseproject.document.user.User;
 import com.ustyn.courseproject.service.user.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

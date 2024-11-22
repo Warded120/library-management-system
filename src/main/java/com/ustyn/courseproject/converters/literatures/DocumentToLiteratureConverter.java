@@ -1,14 +1,12 @@
 package com.ustyn.courseproject.converters.literatures;
 
-import com.ustyn.courseproject.entity.literature.Article;
-import com.ustyn.courseproject.entity.literature.Book;
-import com.ustyn.courseproject.entity.literature.Literature;
+import com.ustyn.courseproject.document.literature.Article;
+import com.ustyn.courseproject.document.literature.Book;
+import com.ustyn.courseproject.document.literature.Literature;
 import org.bson.Document;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.ZoneId;
 
 @ReadingConverter

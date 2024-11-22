@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.controller;
 
-import com.ustyn.courseproject.entity.user.User;
+import com.ustyn.courseproject.document.user.User;
 import com.ustyn.courseproject.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

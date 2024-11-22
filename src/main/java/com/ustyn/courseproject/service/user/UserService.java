@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.user;
 
-import com.ustyn.courseproject.entity.user.User;
+import com.ustyn.courseproject.document.user.User;
 
 public interface UserService {
     User findByUsername(String username);

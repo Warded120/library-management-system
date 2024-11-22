@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.key;
 
-import com.ustyn.courseproject.entity.user.Key;
+import com.ustyn.courseproject.document.user.Key;
 
 public interface KeyService {
     Key save(Key key);

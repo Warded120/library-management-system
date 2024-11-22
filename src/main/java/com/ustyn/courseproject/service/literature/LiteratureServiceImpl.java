@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.literature;
 
-import com.ustyn.courseproject.entity.literature.Literature;
+import com.ustyn.courseproject.document.literature.Literature;
 import com.ustyn.courseproject.repository.LiteratureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

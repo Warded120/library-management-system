@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.key;
 
-import com.ustyn.courseproject.entity.user.Key;
+import com.ustyn.courseproject.document.user.Key;
 import com.ustyn.courseproject.repository.KeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

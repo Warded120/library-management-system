@@ -1,7 +1,7 @@
 package com.ustyn.courseproject.service.user;
-import com.ustyn.courseproject.entity.user.Key;
-import com.ustyn.courseproject.entity.user.Role;
-import com.ustyn.courseproject.entity.user.User;
+import com.ustyn.courseproject.document.user.Key;
+import com.ustyn.courseproject.document.user.Role;
+import com.ustyn.courseproject.document.user.User;
 import com.ustyn.courseproject.repository.RoleRepository;
 import com.ustyn.courseproject.repository.UserRepository;
 import com.ustyn.courseproject.service.key.KeyService;

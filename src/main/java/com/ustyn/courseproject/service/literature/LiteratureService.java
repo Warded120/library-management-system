@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.service.literature;
 
-import com.ustyn.courseproject.entity.literature.Literature;
+import com.ustyn.courseproject.document.literature.Literature;
 
 import java.util.List;
 

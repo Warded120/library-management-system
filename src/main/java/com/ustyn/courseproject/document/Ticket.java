@@ -1,6 +1,6 @@
-package com.ustyn.courseproject.entity;
+package com.ustyn.courseproject.document;
 
-import com.ustyn.courseproject.entity.literature.Literature;
+import com.ustyn.courseproject.document.literature.Literature;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
