@@ -6,7 +6,9 @@ import com.ustyn.courseproject.entity.reader.Student;
 import org.bson.Document;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
-import org.springframework.stereotype.Component;
+
+import java.time.ZoneId;
+import java.util.Date;
 
 @WritingConverter
 public class ReaderToDocumentConverter implements Converter<Reader, Document> {
@@ -16,9 +18,10 @@ public class ReaderToDocumentConverter implements Converter<Reader, Document> {
         document.put("_id", source.getId());
         document.put("name", source.getName());
         document.put("address", source.getAddress());
-        document.put("subscriptions", source.getSubscription());
-        document.put("lastVisitDate", source.getLastVisitDate());
-
+        document.put("ticketId", source.getTicketId());
+        document.put("lastVisitDate", Date.from(source.getLastVisitDate()
+                .atStartOfDay(ZoneId.systemDefault())
+                .toInstant()));
         if (source instanceof Scientist) {
             document.put("_class", "Scientist");
             document.put("specialty", ((Scientist) source).getSpecialty());

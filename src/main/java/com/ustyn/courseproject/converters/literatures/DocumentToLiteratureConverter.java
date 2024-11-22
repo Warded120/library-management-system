@@ -9,6 +9,7 @@ import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @ReadingConverter
 public class DocumentToLiteratureConverter implements Converter<Document, Literature> {
@@ -22,7 +23,9 @@ public class DocumentToLiteratureConverter implements Converter<Document, Litera
             return book;
         } else if ("Article".equals(type)) {
             Article article = new Article();
-            article.setPublishDate(source.get("publishDate", LocalDate.class));
+            article.setPublishDate(source.getDate("publishDate").toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate());
             setCommonFields(source, article);
             return article;
         }

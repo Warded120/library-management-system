@@ -1,6 +1,6 @@
 package com.ustyn.courseproject.entity.library;
 
-import com.ustyn.courseproject.entity.Subscription;
+import com.ustyn.courseproject.entity.Ticket;
 import com.ustyn.courseproject.entity.reader.Reader;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class Library {
     String name;
 
     @DBRef
-    Collection<Subscription> subscriptions;
+    Collection<Ticket> tickets;
 
     @DBRef
     Collection<ReadingRoom> readingRooms;

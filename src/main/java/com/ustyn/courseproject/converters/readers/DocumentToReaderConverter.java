@@ -1,15 +1,16 @@
 package com.ustyn.courseproject.converters.readers;
 
+import com.ustyn.courseproject.entity.literature.Literature;
 import com.ustyn.courseproject.entity.reader.Reader;
 import com.ustyn.courseproject.entity.reader.Scientist;
 import com.ustyn.courseproject.entity.reader.Student;
-import com.ustyn.courseproject.entity.Subscription;
+import com.ustyn.courseproject.entity.Ticket;
 import org.bson.Document;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @ReadingConverter
 public class DocumentToReaderConverter implements Converter<Document, Reader> {
@@ -34,7 +35,8 @@ public class DocumentToReaderConverter implements Converter<Document, Reader> {
         reader.setId(source.getObjectId("_id").toString());
         reader.setName(source.getString("name"));
         reader.setAddress(source.getString("address"));
-        reader.setSubscription(source.get("subscription", Subscription.class));
-        reader.setLastVisitDate(source.get("lastVisitDate", LocalDate.class));
-    }
+        reader.setTicketId(source.getString("ticketId"));
+        reader.setLastVisitDate(source.getDate("lastVisitDate").toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());    }
 }

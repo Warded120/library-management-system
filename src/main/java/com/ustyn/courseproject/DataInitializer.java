@@ -1,6 +1,6 @@
 package com.ustyn.courseproject;
 
-import com.ustyn.courseproject.entity.Subscription;
+import com.ustyn.courseproject.entity.Ticket;
 import com.ustyn.courseproject.entity.literature.Article;
 import com.ustyn.courseproject.entity.literature.Book;
 import com.ustyn.courseproject.entity.literature.Literature;
@@ -9,11 +9,10 @@ import com.ustyn.courseproject.entity.reader.Student;
 import com.ustyn.courseproject.entity.user.Key;
 import com.ustyn.courseproject.entity.user.Role;
 import com.ustyn.courseproject.entity.user.User;
-import com.ustyn.courseproject.repository.LiteratureRepository;
-import com.ustyn.courseproject.service.key.KeyService;
 import com.ustyn.courseproject.service.literature.LiteratureService;
 import com.ustyn.courseproject.service.reader.ReaderService;
-import com.ustyn.courseproject.service.subscription.SubscriptionService;
+import com.ustyn.courseproject.service.subscription.TicketService;
+import com.ustyn.courseproject.service.subscription.TicketServiceImpl;
 import com.ustyn.courseproject.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,17 +27,17 @@ public class DataInitializer implements CommandLineRunner {
     private final UserService userService;
     private final LiteratureService literatureService;
     private final ReaderService readerService;
-    private final SubscriptionService subscriptionService;
+    private final TicketService ticketService;
 
     @Autowired
     public DataInitializer(UserService userService,
                            LiteratureService literatureService,
                            ReaderService readerService,
-                           SubscriptionService subscriptionService) {
+                           TicketService ticketService) {
         this.userService = userService;
         this.literatureService = literatureService;
         this.readerService = readerService;
-        this.subscriptionService = subscriptionService;
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -82,14 +81,21 @@ public class DataInitializer implements CommandLineRunner {
 
     private void addReaders() {
         if (!readerService.existsByName("John Doe")) {
-            Student student = new Student("John Doe", "123 Elm Street", new Subscription(), LocalDate.now(), "University of Example");
+            Ticket ticket = new Ticket(List.of(literatureService.findByTitle("book")));
+            Ticket savedTicket = ticketService.save(ticket);
+            System.out.println("saved ticket: " + savedTicket);
 
-            // TODO: Can't find a codec for CodecCacheKey{clazz=class com.ustyn.courseproject.entity.Subscription, types=null}
+            Student student = new Student("John Doe", "123 Elm Street", savedTicket, LocalDate.now(), "University of Example");
+
             readerService.save(student);
         }
 
         if (!readerService.existsByName("Dr. Alice Smith")) {
-            Scientist scientist = new Scientist("Dr. Alice Smith", "456 Oak Avenue", new Subscription(), LocalDate.now(), "Physics");
+            Ticket ticket = new Ticket(List.of(literatureService.findByTitle("article")));
+            Ticket savedTicket = ticketService.save(ticket);
+            System.out.println("saved ticket: " + savedTicket);
+
+            Scientist scientist = new Scientist("Dr. Alice Smith", "456 Oak Avenue", savedTicket, LocalDate.now(), "Physics");
             readerService.save(scientist);
         }
 

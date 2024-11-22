@@ -8,6 +8,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.util.Date;
+
 @WritingConverter
 public class LiteratureToDocumentConverter implements Converter<Literature, Document> {
     @Override
@@ -24,7 +27,9 @@ public class LiteratureToDocumentConverter implements Converter<Literature, Docu
             document.put("pages", ((Book) source).getPages());
         } else if (source instanceof Article) {
             document.put("_class", "Article");
-            document.put("publishDate", ((Article) source).getPublishDate());
+            document.put("publishDate", Date.from(((Article) source).getPublishDate()
+                    .atStartOfDay(ZoneId.systemDefault())
+                    .toInstant()));
         } else {
             throw new IllegalArgumentException("Unsupported type: " + source.getClass().getName());
         }

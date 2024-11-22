@@ -1,15 +1,12 @@
 package com.ustyn.courseproject.entity.reader;
 
-import com.ustyn.courseproject.entity.Subscription;
+import com.ustyn.courseproject.entity.Ticket;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -22,15 +19,14 @@ public abstract class Reader {
 
     private String address;
 
-    @DBRef
-    private Subscription subscription;
+    private String ticketId;
 
     private LocalDate lastVisitDate;
 
-    public Reader(String name, String address, Subscription subscription, LocalDate lastVisitDate) {
+    public Reader(String name, String address, Ticket ticket, LocalDate lastVisitDate) {
         this.name = name;
         this.address = address;
-        this.subscription = subscription;
+        this.ticketId = ticket.getId();
         this.lastVisitDate = lastVisitDate;
     }
 }

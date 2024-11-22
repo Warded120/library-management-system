@@ -21,6 +21,7 @@ public abstract class Literature {
     private String inventoryNumber;
     private boolean available;
 
+
     public Literature(String title, String author, String inventoryNumber, boolean available) {
         this.title = title;
         this.author = author;
