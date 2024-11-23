@@ -12,7 +12,7 @@ import com.ustyn.courseproject.document.user.Role;
 import com.ustyn.courseproject.document.user.User;
 import com.ustyn.courseproject.service.literature.LiteratureService;
 import com.ustyn.courseproject.service.reader.ReaderService;
-import com.ustyn.courseproject.service.subscription.TicketService;
+import com.ustyn.courseproject.service.ticket.TicketService;
 import com.ustyn.courseproject.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

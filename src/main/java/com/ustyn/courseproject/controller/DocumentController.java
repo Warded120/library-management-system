@@ -1,6 +1,7 @@
 package com.ustyn.courseproject.controller;
 
 import com.ustyn.courseproject.constants.Roles;
+import com.ustyn.courseproject.document.library.Library;
 import com.ustyn.courseproject.document.library.LibraryStaff;
 import com.ustyn.courseproject.document.literature.Article;
 import com.ustyn.courseproject.document.literature.Book;
@@ -9,6 +10,7 @@ import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.document.reader.Scientist;
 import com.ustyn.courseproject.document.reader.Student;
 import com.ustyn.courseproject.document.user.User;
+import com.ustyn.courseproject.dto.library.LibraryDto;
 import com.ustyn.courseproject.dto.library.LibraryStaffDto;
 import com.ustyn.courseproject.dto.reader.ScientistDto;
 import com.ustyn.courseproject.dto.reader.StudentDto;
@@ -16,6 +18,7 @@ import com.ustyn.courseproject.dto.UserDto;
 import com.ustyn.courseproject.dto.literature.ArticleDto;
 import com.ustyn.courseproject.dto.literature.BookDto;
 import com.ustyn.courseproject.repository.KeyRepository;
+import com.ustyn.courseproject.service.library.LibraryService;
 import com.ustyn.courseproject.service.libraryStaff.LibraryStaffService;
 import com.ustyn.courseproject.service.literature.LiteratureService;
 import com.ustyn.courseproject.service.reader.ReaderService;
@@ -42,6 +45,7 @@ public class DocumentController {
     private final ReaderService readerService;
     private final LiteratureService literatureService;
     private final LibraryStaffService libraryStaffService;
+    private final LibraryService libraryService;
 
     @Autowired
     public DocumentController(UserService userService,
@@ -49,13 +53,15 @@ public class DocumentController {
                               KeyRepository keyRepository,
                               ReaderService readerService,
                               LiteratureService literatureService,
-                              LibraryStaffService libraryStaffService) {
+                              LibraryStaffService libraryStaffService,
+                              LibraryService libraryService) {
         this.userService = userService;
         this.roleService = roleService;
         this.keyRepository = keyRepository;
         this.readerService = readerService;
         this.literatureService = literatureService;
         this.libraryStaffService = libraryStaffService;
+        this.libraryService = libraryService;
     }
 
     @InitBinder
@@ -510,5 +516,34 @@ public class DocumentController {
         libraryStaffService.save(libraryStaff);
 
         return "redirect:/document/library-staffs";
+    }
+
+
+
+    // library mappings
+    @GetMapping("/libraries")
+    public String libraries(Model model) {
+
+        model.addAttribute("libraries", libraryService.findAll());
+        model.addAttribute("formLibrary", new LibraryDto());
+
+        return "documents/libraries-list";
+    }
+
+    @PostMapping("/libraries")
+    public String saveLibrary(@Valid @ModelAttribute("formLibrary") LibraryDto libraryDto,
+                              BindingResult bindingResult,
+                              Model model) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("libraries", libraryService.findAll());
+            model.addAttribute("formLibrary", libraryDto);
+
+            return "documents/libraries-list";
+        }
+
+        Library library = new Library(libraryDto);
+        libraryService.save(library);
+
+        return "redirect:/document/libraries";
     }
 }

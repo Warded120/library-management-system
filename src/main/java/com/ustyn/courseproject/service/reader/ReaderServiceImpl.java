@@ -5,8 +5,7 @@ import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.document.reader.Scientist;
 import com.ustyn.courseproject.document.reader.Student;
 import com.ustyn.courseproject.repository.ReaderRepository;
-import com.ustyn.courseproject.repository.TicketRepository;
-import com.ustyn.courseproject.service.subscription.TicketService;
+import com.ustyn.courseproject.service.ticket.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
