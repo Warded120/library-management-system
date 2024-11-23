@@ -2,6 +2,7 @@ package com.ustyn.courseproject.document.library;
 
 import com.ustyn.courseproject.document.literature.Literature;
 import com.ustyn.courseproject.document.reader.Reader;
+import com.ustyn.courseproject.dto.library.LibraryDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -18,14 +19,22 @@ public class Library {
     @Id
     private ObjectId id;
 
-    String name;
+    private String name;
 
     @DBRef
-    List<Literature> literatures;
+    private List<Literature> literatures;
 
     @DBRef
-    List<LibraryStaff> libraryStaffs;
+    private List<LibraryStaff> libraryStaffs;
 
     @DBRef
-    List<Reader> readers;
+    private List<Reader> readers;
+
+    public Library(LibraryDto dto) {
+        this.id = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
+        this.name = dto.getName();
+        this.literatures = dto.getLiteratures();
+        this.libraryStaffs = dto.getLibraryStaffs();
+        this.readers = dto.getReaders();
+    }
 }
