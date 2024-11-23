@@ -37,4 +37,11 @@ public class Library {
         this.libraryStaffs = dto.getLibraryStaffs();
         this.readers = dto.getReaders();
     }
+
+    public Library(String name, List<Literature> literatures, List<LibraryStaff> libraryStaffs, List<Reader> readers) {
+        this.name = name;
+        this.literatures = literatures;
+        this.libraryStaffs = libraryStaffs;
+        this.readers = readers;
+    }
 }

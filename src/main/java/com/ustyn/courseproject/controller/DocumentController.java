@@ -31,6 +31,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -110,7 +111,7 @@ public class DocumentController {
                         BindingResult bindingResult,
                         Model model) {
 
-        if (bindingResult.hasErrors()) {
+        if(thereAreErrorsIn(bindingResult, List.of("username"))) {
 
             model.addAttribute("users", userService.findAll());
             model.addAttribute("formUser", userDto);
@@ -561,5 +562,18 @@ public class DocumentController {
         libraryService.save(library);
 
         return "redirect:/document/libraries";
+    }
+
+    private static boolean thereAreErrorsIn(BindingResult theBindingResult, List<String> fieldsToIgnore) {
+        if (!theBindingResult.hasErrors()) {
+            return false;
+        }
+
+        for(FieldError theFieldError : theBindingResult.getFieldErrors()) {
+            if(!fieldsToIgnore.contains(theFieldError.getField())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

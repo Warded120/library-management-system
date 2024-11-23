@@ -5,6 +5,7 @@ import com.ustyn.courseproject.document.user.User;
 import com.ustyn.courseproject.repository.RoleRepository;
 import com.ustyn.courseproject.repository.UserRepository;
 import com.ustyn.courseproject.service.key.KeyService;
+import com.ustyn.courseproject.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final KeyService keyService;
-    private final RoleRepository roleRepository;
+    RoleService roleService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            KeyService keyService,
-                           RoleRepository roleRepository) {
+                           RoleService roleService) {
 
         this.userRepository = userRepository;
         this.keyService = keyService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -40,13 +41,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        Key key = new Key(user.getPassword().getPassword());
-        Key savedKey = keyService.save(key);
-        user.setPassword(savedKey);
 
-        List<Role> roles = user.getRoles();
-        List<Role> savedRoles = roleRepository.saveAll(roles);
-        user.setRoles(savedRoles);
+        if(user.getPassword().getId() != null) {
+            Key savedKey = keyService.findById(user.getPassword().getId());
+            savedKey.setPassword(user.getPassword().getPassword());
+            keyService.save(savedKey);
+        } else {
+            keyService.save(user.getPassword());
+        }
+
+        if(user.getRoles().getFirst().getId() != null) {
+            Role savedRole = roleService.findById(user.getRoles().getFirst().getId());
+            savedRole.setName(user.getRoles().getFirst().getName());
+            roleService.save(savedRole);
+        } else {
+            roleService.save(user.getRoles().getFirst());
+        }
 
         // Save the User
         return userRepository.save(user);
@@ -67,8 +77,12 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findById(id).orElse(null);
 
-        roleRepository.deleteAllById(user.getRoles().stream().map(Role::getId).toList());
-        keyService.delete(user.getPassword());
+        System.out.println("user: " + user);
+        if(user != null) {
+            System.out.println("user not null; deleting role and key");
+            roleService.deleteById(user.getRoles().stream().map(Role::getId).toList().getFirst());
+            keyService.delete(user.getPassword());
+        }
 
         userRepository.deleteById(id);
     }

@@ -24,4 +24,9 @@ public class KeyServiceImpl implements KeyService {
     public void delete(Key key) {
         keyRepository.delete(key);
     }
+
+    @Override
+    public Key findById(String id) {
+        return keyRepository.findById(id).orElse(null);
+    }
 }
