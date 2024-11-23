@@ -19,4 +19,14 @@ public class TicketServiceImpl implements TicketService {
     public Ticket save(Ticket ticket) {
         return ticketRepository.save(ticket);
     }
+
+    @Override
+    public Ticket findById(String id) {
+        return ticketRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        ticketRepository.deleteById(id);
+    }
 }

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+    /*
     public void deleteByUsername(String username) {
 
         User user = userRepository.findByUsername(username);
@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
         keyService.delete(user.getPassword());
         userRepository.delete(user);
     }
+    */
 
     @Override
     public List<User> findAll() {
@@ -74,6 +75,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(String id) {
+
+        User user = userRepository.findById(id).orElse(null);
+
+        roleRepository.deleteAllById(user.getRoles().stream().map(Role::getId).toList());
+        keyService.delete(user.getPassword());
+
         userRepository.deleteById(id);
     }
 }

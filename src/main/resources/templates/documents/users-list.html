@@ -84,7 +84,6 @@
             <label>
               <input id="username" class="form-control" type="text" placeholder="example@gmail.com" th:field="*{username}">
             </label>
-            <!-- Повідомлення про помилку для логіну -->
             <div th:if="${#fields.hasErrors('username')}" class="text-danger">
               <small th:errors="*{username}"></small>
             </div>
@@ -93,7 +92,6 @@
             <label>
               <input id="userPassword" class="form-control" type="text" placeholder="Test123" th:field="*{password}">
             </label>
-            <!-- Повідомлення про помилку для паролю -->
             <div th:if="${#fields.hasErrors('password')}" class="text-danger">
               <small th:errors="*{password}"></small>
             </div>
@@ -105,7 +103,6 @@
                 <option th:value="${false}">Неактивний</option>
               </select>
             </label>
-            <!-- Повідомлення про помилку для стану -->
             <div th:if="${#fields.hasErrors('enabled')}" class="text-danger">
               <small th:errors="*{enabled}"></small>
             </div>
@@ -116,7 +113,6 @@
                 <option th:each="role: ${roles}" th:value="${role}" th:text="${role}">Роль</option>
               </select>
             </label>
-            <!-- Повідомлення про помилку для ролі -->
             <div th:if="${#fields.hasErrors('role')}" class="text-danger">
               <small th:errors="*{role}"></small>
             </div>

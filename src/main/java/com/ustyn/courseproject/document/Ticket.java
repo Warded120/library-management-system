@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class Ticket {
     private String id;
 
     @DBRef
-    private List<Literature> borrowedLiteratures;
+    private List<Literature> borrowedLiteratures = new ArrayList<>();
 
     public Ticket(List<Literature> borrowedLiteratures) {
         this.borrowedLiteratures = borrowedLiteratures;

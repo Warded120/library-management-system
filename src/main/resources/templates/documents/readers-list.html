@@ -58,9 +58,154 @@
 
 <!-- Content -->
 <div class="container py-5">
-  <h2 class="text-center text-primary mb-4">Список читачів</h2>
 
-  <!-- Students Table -->
+  <h2 class="text-center text-primary mb-4">Додати студента</h2>
+  <div class="table-responsive">
+    <form action="#" th:action="@{/document/readers/student}" th:object="${formStudent}" method="post">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Ім'я</th>
+          <th>Адреса</th>
+          <th>Квиток ID</th>
+          <th>Останній візит</th>
+          <th>Університет</th>
+          <th>Відправити</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <label>
+              <input id="studentId" class="form-control" type="text" placeholder="усталене значення" th:field="*{id}" readonly>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input id="studentName" class="form-control" type="text" placeholder="введіть ім'я" th:field="*{name}">
+            </label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+              <small th:errors="*{name}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="studentAddress" class="form-control" type="text" placeholder="введіть адресу" th:field="*{address}">
+            </label>
+            <div th:if="${#fields.hasErrors('address')}" class="text-danger">
+              <small th:errors="*{address}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="studentTicketId" class="form-control" type="text" placeholder="усталене значення" th:field="*{ticketId}" readonly>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input id="studentLastVisitDate" class="form-control" type="date" th:field="*{lastVisitDate}">
+            </label>
+            <div th:if="${#fields.hasErrors('lastVisitDate')}" class="text-danger">
+              <small th:errors="*{lastVisitDate}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="studentInstitution" class="form-control" type="text" placeholder="введіть назву" th:field="*{institution}">
+            </label>
+            <!-- Повідомлення про помилку для паролю -->
+            <div th:if="${#fields.hasErrors('institution')}" class="text-danger">
+              <small th:errors="*{institution}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input class="btn btn-primary" type="submit" value="Відправити">
+            </label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <h2 class="text-center text-primary mb-4">Додати науковця</h2>
+  <div class="table-responsive">
+    <form action="#" th:action="@{/document/readers/scientist}" th:object="${formScientist}" method="post">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Ім'я</th>
+          <th>Адреса</th>
+          <th>Квиток ID</th>
+          <th>Останній візит</th>
+          <th>Спеціальність</th>
+          <th>Відправити</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <label>
+              <input id="scientistId" class="form-control" type="text" placeholder="усталене значення" th:field="*{id}" readonly>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input id="scientistName" class="form-control" type="text" placeholder="введіть ім'я" th:field="*{name}">
+            </label>
+            <!-- Повідомлення про помилку для логіну -->
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+              <small th:errors="*{name}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="scientistAddress" class="form-control" type="text" placeholder="введіть адресу" th:field="*{address}">
+            </label>
+            <!-- Повідомлення про помилку для паролю -->
+            <div th:if="${#fields.hasErrors('address')}" class="text-danger">
+              <small th:errors="*{address}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="scientistTicketId" class="form-control" type="text" placeholder="усталене значення" th:field="*{ticketId}" readonly>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input id="scientistLastVisitDate" class="form-control" type="date" th:field="*{lastVisitDate}">
+            </label>
+            <!-- Повідомлення про помилку для паролю -->
+            <div th:if="${#fields.hasErrors('lastVisitDate')}" class="text-danger">
+              <small th:errors="*{lastVisitDate}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input id="scientistSpecialty" class="form-control" type="text" placeholder="введіть назву" th:field="*{specialty}">
+            </label>
+            <!-- Повідомлення про помилку для паролю -->
+            <div th:if="${#fields.hasErrors('specialty')}" class="text-danger">
+              <small th:errors="*{specialty}"></small>
+            </div>
+          </td>
+          <td>
+            <label>
+              <input class="btn btn-primary" type="submit" value="Відправити">
+            </label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+
+  <h2 class="text-center text-primary mb-4">Список читачів</h2>
   <div class="table-responsive mb-5">
     <h4 class="text-center text-secondary">Студенти</h4>
     <table class="table table-striped table-hover">
@@ -71,11 +216,12 @@
         <th>Адреса</th>
         <th>Квиток ID</th>
         <th>Останній візит</th>
-        <th>Установа</th>
+        <th>Університет</th>
+        <th>Редагування</th>
+        <th>Видалення</th>
       </tr>
       </thead>
       <tbody>
-      <!-- Iterate through the list of students -->
       <tr th:each="student : ${students}">
         <td th:text="${student.id}">1</td>
         <td th:text="${student.name}">Іван Іванов</td>
@@ -83,6 +229,15 @@
         <td th:text="${student.ticketId}">12345</td>
         <td th:text="${student.lastVisitDate}">2023-11-20</td>
         <td th:text="${student.institution}">Київський університет</td>
+        <td>
+          <a th:href="@{/document/readers/student/{id}(id=${student.id})}" class="btn btn-primary">Редагувати</a>
+        </td>
+        <td>
+          <form th:action="@{/document/readers/student/{id}(id=${student.id})}" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" class="btn btn-danger" value="Видалити">
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -100,17 +255,27 @@
         <th>Квиток ID</th>
         <th>Останній візит</th>
         <th>Спеціальність</th>
+        <th>Редагування</th>
+        <th>Видалення</th>
       </tr>
       </thead>
       <tbody>
-      <!-- Iterate through the list of scientists -->
       <tr th:each="scientist : ${scientists}">
         <td th:text="${scientist.id}">1</td>
         <td th:text="${scientist.name}">Петро Петров</td>
         <td th:text="${scientist.address}">Львів, вул. Франка, 20</td>
         <td th:text="${scientist.ticketId}">54321</td>
-        <td th:text="${scientist.lastVisitDate}">2023-11-19</td>
+        <td th:text="${scientist.lastVisitDate}">2023-11-20</td>
         <td th:text="${scientist.specialty}">Фізика</td>
+        <td>
+          <a th:href="@{/document/readers/scientist/{id}(id=${scientist.id})}" class="btn btn-primary">Редагувати</a>
+        </td>
+        <td>
+          <form th:action="@{/document/readers/scientist/{id}(id=${scientist.id})}" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" class="btn btn-danger" value="Видалити">
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>

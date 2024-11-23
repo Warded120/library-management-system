@@ -32,7 +32,6 @@ public class ReaderToDocumentConverter implements Converter<Reader, Document> {
             throw new IllegalArgumentException("Unsupported Reader type: " + source.getClass().getName());
         }
 
-        System.out.println(document);
         return document;
     }
 }

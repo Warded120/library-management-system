@@ -1,10 +1,10 @@
 package com.ustyn.courseproject.dto;
 
 import com.ustyn.courseproject.constants.Roles;
-import com.ustyn.courseproject.document.user.Role;
 import com.ustyn.courseproject.document.user.User;
+import com.ustyn.courseproject.validation.unique.Unique;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +16,11 @@ public class UserDto {
     private String id;
 
     @Email(message = "неправильний формат")
-    @NotBlank(message = "обов'язково")
+    @NotNull(message = "обов'язково")
+    @Unique
     private String username = "";
 
-    @NotBlank(message = "обов'язково")
+    @NotNull(message = "обов'язково")
     private String password = "";
 
     private boolean enabled = true;
