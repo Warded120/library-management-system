@@ -1,6 +1,7 @@
 package com.ustyn.courseproject.controller;
 
 import com.ustyn.courseproject.constants.Roles;
+import com.ustyn.courseproject.document.library.LibraryStaff;
 import com.ustyn.courseproject.document.literature.Article;
 import com.ustyn.courseproject.document.literature.Book;
 import com.ustyn.courseproject.document.literature.Literature;
@@ -26,6 +27,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -458,4 +461,13 @@ public class DocumentController {
     }
 
 
+
+    // library-staff mappings
+    @GetMapping("/library-staffs")
+    public String libraryStaffs(Model model) {
+        model.addAttribute("libraryStaffs", new ArrayList<LibraryStaff>());
+        model.addAttribute("formLibraryStaff", new LibraryStaff());
+
+        return "documents/library-staffs-list";
+    }
 }
