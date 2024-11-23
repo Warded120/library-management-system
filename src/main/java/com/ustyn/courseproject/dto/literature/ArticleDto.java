@@ -24,7 +24,7 @@ public class ArticleDto {
     private String inventoryNumber;
 
     @NotNull(message = "обов'язково")
-    private boolean available;
+    private boolean available = true;
 
     @NotNull(message = "обов'язково")
     @InPast

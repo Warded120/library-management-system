@@ -21,8 +21,9 @@ public class Article extends Literature {
         this.publishDate = publishDate;
     }
 
-    public Article(ArticleDto articleDto) {
-        super(new ObjectId(articleDto.getId()), articleDto.getTitle(), articleDto.getAuthor(), articleDto.getInventoryNumber(), articleDto.isAvailable());
-        this.publishDate = articleDto.getPublishDate();
+    public Article(ArticleDto dto) {
+        ObjectId objectId = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
+        super(objectId, dto.getTitle(), dto.getAuthor(), dto.getInventoryNumber(), dto.isAvailable());
+        this.publishDate = dto.getPublishDate();
     }
 }

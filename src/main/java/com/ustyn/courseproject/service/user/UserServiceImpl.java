@@ -52,17 +52,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    /*
-    public void deleteByUsername(String username) {
-
-        User user = userRepository.findByUsername(username);
-
-        roleRepository.deleteAllById(user.getRoles().stream().map(Role::getId).toList());
-        keyService.delete(user.getPassword());
-        userRepository.delete(user);
-    }
-    */
-
     @Override
     public List<User> findAll() {
         return userRepository.findAll();

@@ -19,8 +19,9 @@ public class Book extends Literature {
         this.pages = pages;
     }
 
-    public Book(BookDto bookDto) {
-        super(new ObjectId(bookDto.getId()), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getInventoryNumber(), bookDto.isAvailable());
-        this.pages = bookDto.getPages();
+    public Book(BookDto dto) {
+        ObjectId objectId = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
+        super(objectId, dto.getTitle(), dto.getAuthor(), dto.getInventoryNumber(), dto.isAvailable());
+        this.pages = dto.getPages();
     }
 }

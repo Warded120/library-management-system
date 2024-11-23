@@ -21,7 +21,8 @@ public class Scientist extends Reader{
     }
 
     public Scientist(ScientistDto dto) {
-        super(new ObjectId(dto.getId()), dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
+        ObjectId objectId = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
+        super(objectId, dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
         this.specialty = dto.getSpecialty();
     }
 }

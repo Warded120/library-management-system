@@ -17,8 +17,8 @@ public class LibraryStaff {
 
     private String name;
 
-    public LibraryStaff(LibraryStaffDto libraryStaffDto) {
-        this.id = new ObjectId(libraryStaffDto.getId());
-        this.name = libraryStaffDto.getName();
+    public LibraryStaff(LibraryStaffDto dto) {
+        this.id = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
+        this.name = dto.getName();
     }
 }

@@ -28,7 +28,8 @@ public class ReaderServiceImpl implements ReaderService {
 
     @Override
     public Reader save(Reader reader) {
-        Optional<Reader> existingReaderOpt =  reader.getId() != null ? existingReaderOpt = readerRepository.findById(reader.getId().toString()): Optional.empty();
+
+        Optional<Reader> existingReaderOpt =  reader.getId() != null ? readerRepository.findById(reader.getId().toString()): Optional.empty();
 
         if (existingReaderOpt.isPresent()) {
             Reader existingReader = existingReaderOpt.get();
@@ -51,6 +52,12 @@ public class ReaderServiceImpl implements ReaderService {
             return readerRepository.save(existingReader);
         }
         else {
+
+            Ticket ticket = new Ticket();
+            Ticket savedTicket = ticketService.save(ticket);
+
+            reader.setTicketId(savedTicket.getId());
+
             return readerRepository.save(reader);
         }
     }

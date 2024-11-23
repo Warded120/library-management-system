@@ -21,7 +21,7 @@ public class BookDto {
     private String inventoryNumber;
 
     @NotNull(message = "обов'язково")
-    private boolean available;
+    private boolean available = true;
 
     @Min(value = 1, message = "мінімум 1 сторінка")
     private int pages;

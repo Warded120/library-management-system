@@ -265,7 +265,7 @@ public class DocumentController {
     @PostMapping("/readers/scientist/{id}")
     public String deleteScientist(@PathVariable String id) {
 
-        System.out.println("deleting scientist called");
+        readerService.deleteById(id);
 
         return "redirect:/document/readers";
     }
@@ -488,6 +488,7 @@ public class DocumentController {
 
     @PostMapping("/library-staffs/{id}")
     public String deleteLibraryStaff(@PathVariable String id) {
+
         libraryStaffService.deleteById(new ObjectId(id));
 
         return "redirect:/document/library-staffs";
