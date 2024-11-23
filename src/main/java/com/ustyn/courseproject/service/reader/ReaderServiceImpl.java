@@ -28,31 +28,31 @@ public class ReaderServiceImpl implements ReaderService {
 
     @Override
     public Reader save(Reader reader) {
+        Optional<Reader> existingReaderOpt =  reader.getId() != null ? existingReaderOpt = readerRepository.findById(reader.getId().toString()): Optional.empty();
 
-        // Kostyl: delete reader if it already exists (тіпа updating)
-        if(reader.getId() != null) {
-            delete(reader);
+        if (existingReaderOpt.isPresent()) {
+            Reader existingReader = existingReaderOpt.get();
+
+            // Update base fields
+            existingReader.setName(reader.getName());
+            existingReader.setAddress(reader.getAddress());
+            existingReader.setTicketId(reader.getTicketId());
+            existingReader.setLastVisitDate(reader.getLastVisitDate());
+
+            // Update subclass-specific fields
+            if (reader instanceof Student && existingReader instanceof Student) {
+                ((Student) existingReader).setInstitution(((Student) reader).getInstitution());
+            } else if (reader instanceof Scientist && existingReader instanceof Scientist) {
+                ((Scientist) existingReader).setSpecialty(((Scientist) reader).getSpecialty());
+            } else {
+                throw new IllegalArgumentException("Unsupported Reader type for update: " + reader.getClass());
+            }
+
+            return readerRepository.save(existingReader);
         }
-
-        Ticket ticket = null;
-        if(reader.getTicketId() != null) {
-            ticket = ticketService.findById(reader.getTicketId());
+        else {
+            return readerRepository.save(reader);
         }
-
-        if(ticket == null) {
-            ticket = new Ticket();
-        }
-
-        Ticket savedTicket = ticketService.save(ticket);
-
-        reader.setTicketId(savedTicket.getId());
-
-        if(reader instanceof Student student) {
-            return readerRepository.save(student);
-        } else if (reader instanceof Scientist scientist) {
-            return readerRepository.save(scientist);
-        }
-        return readerRepository.save(reader);
     }
 
 
@@ -79,6 +79,6 @@ public class ReaderServiceImpl implements ReaderService {
     @Override
     public void delete(Reader reader) {
         ticketService.deleteById(reader.getTicketId());
-        readerRepository.deleteById(reader.getId());
+        readerRepository.deleteById(reader.getId().toString());
     }
 }

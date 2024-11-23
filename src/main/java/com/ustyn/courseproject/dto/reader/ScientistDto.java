@@ -1,7 +1,7 @@
-package com.ustyn.courseproject.dto;
+package com.ustyn.courseproject.dto.reader;
 
 import com.ustyn.courseproject.document.reader.Scientist;
-import com.ustyn.courseproject.validation.age.InPast;
+import com.ustyn.courseproject.validation.inPast.InPast;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class ScientistDto {
     private String specialty;
 
     public ScientistDto(Scientist scientist) {
-        this.id = scientist.getId();
+        this.id = scientist.getId().toString();
         this.name = scientist.getName();
         this.address = scientist.getAddress();
         this.ticketId = scientist.getTicketId();

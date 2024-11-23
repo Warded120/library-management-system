@@ -1,7 +1,7 @@
-package com.ustyn.courseproject.dto;
+package com.ustyn.courseproject.dto.reader;
 
 import com.ustyn.courseproject.document.reader.Student;
-import com.ustyn.courseproject.validation.age.InPast;
+import com.ustyn.courseproject.validation.inPast.InPast;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class StudentDto {
     private String institution;
 
     public StudentDto(Student student) {
-        this.id = student.getId();
+        this.id = student.getId().toString();
         this.name = student.getName();
         this.address = student.getAddress();
         this.ticketId = student.getTicketId();

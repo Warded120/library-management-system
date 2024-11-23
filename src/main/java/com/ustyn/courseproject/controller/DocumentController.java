@@ -8,9 +8,11 @@ import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.document.reader.Scientist;
 import com.ustyn.courseproject.document.reader.Student;
 import com.ustyn.courseproject.document.user.User;
-import com.ustyn.courseproject.dto.ScientistDto;
-import com.ustyn.courseproject.dto.StudentDto;
+import com.ustyn.courseproject.dto.reader.ScientistDto;
+import com.ustyn.courseproject.dto.reader.StudentDto;
 import com.ustyn.courseproject.dto.UserDto;
+import com.ustyn.courseproject.dto.literature.ArticleDto;
+import com.ustyn.courseproject.dto.literature.BookDto;
 import com.ustyn.courseproject.repository.KeyRepository;
 import com.ustyn.courseproject.service.literature.LiteratureService;
 import com.ustyn.courseproject.service.reader.ReaderService;
@@ -296,26 +298,164 @@ public class DocumentController {
 
 
 
-    // literature m appings
+    // Literature mappings
     @GetMapping("/literatures")
     public String literatures(Model model) {
-
         List<Literature> literatures = literatureService.findAll();
 
         List<Book> books = literatures.stream()
-                .filter(literature -> literature instanceof Book)
-                .map(literature -> (Book) literature)
+                .filter(lit -> lit instanceof Book)
+                .map(lit -> (Book) lit)
                 .toList();
 
         List<Article> articles = literatures.stream()
-                .filter(literature -> literature instanceof Article)
-                .map(literature -> (Article) literature)
+                .filter(lit -> lit instanceof Article)
+                .map(lit -> (Article) lit)
                 .toList();
 
         model.addAttribute("books", books);
         model.addAttribute("articles", articles);
 
+        model.addAttribute("formBook", new BookDto());
+        model.addAttribute("formArticle", new ArticleDto());
+
         return "documents/literatures-list";
     }
+
+    // Book mappings
+    @GetMapping("/literatures/book/{id}")
+    public String updateBook(@PathVariable String id,
+                             Model model) {
+
+        List<Literature> literatures = literatureService.findAll();
+
+        List<Book> books = literatures.stream()
+                .filter(lit -> lit instanceof Book)
+                .map(lit -> (Book) lit)
+                .toList();
+
+        List<Article> articles = literatures.stream()
+                .filter(lit -> lit instanceof Article)
+                .map(lit -> (Article) lit)
+                .toList();
+
+        model.addAttribute("books", books);
+        model.addAttribute("articles", articles);
+
+        model.addAttribute("formBook", new BookDto((Book) literatureService.findById(id)));
+        model.addAttribute("formArticle", new ArticleDto());
+
+        return "documents/literatures-list";
+    }
+
+    @PostMapping("/literatures/book/{id}")
+    public String deleteBook(@PathVariable String id) {
+
+        literatureService.deleteById(id);
+
+        return "redirect:/document/literatures";
+    }
+
+    @PostMapping("/literatures/book")
+    public String saveBook(@Valid @ModelAttribute("formBook") BookDto bookDto,
+                           BindingResult bindingResult,
+                           Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<Literature> literatures = literatureService.findAll();
+
+            List<Book> books = literatures.stream()
+                    .filter(lit -> lit instanceof Book)
+                    .map(lit -> (Book) lit)
+                    .toList();
+
+            List<Article> articles = literatures.stream()
+                    .filter(lit -> lit instanceof Article)
+                    .map(lit -> (Article) lit)
+                    .toList();
+
+            model.addAttribute("books", books);
+            model.addAttribute("articles", articles);
+
+            model.addAttribute("formBook", bookDto);
+            model.addAttribute("formArticle", new ArticleDto());
+
+            return "documents/literatures-list";
+        }
+
+        Book book = new Book(bookDto);
+        literatureService.save(book);
+
+        return "redirect:/document/literatures";
+    }
+
+
+    // Article mappings
+    @GetMapping("/literatures/article/{id}")
+    public String updateArticle(@PathVariable String id,
+                                Model model) {
+
+        List<Literature> literatures = literatureService.findAll();
+
+        List<Book> books = literatures.stream()
+                .filter(lit -> lit instanceof Book)
+                .map(lit -> (Book) lit)
+                .toList();
+
+        List<Article> articles = literatures.stream()
+                .filter(lit -> lit instanceof Article)
+                .map(lit -> (Article) lit)
+                .toList();
+
+        model.addAttribute("books", books);
+        model.addAttribute("articles", articles);
+
+        model.addAttribute("formBook", new BookDto());
+        model.addAttribute("formArticle", new ArticleDto((Article) literatureService.findById(id)));
+
+        return "documents/literatures-list";
+    }
+
+    @PostMapping("/literatures/article/{id}")
+    public String deleteArticle(@PathVariable String id) {
+
+        literatureService.deleteById(id);
+
+        return "redirect:/document/literatures";
+    }
+
+    @PostMapping("/literatures/article")
+    public String saveArticle(@Valid @ModelAttribute("formArticle") ArticleDto articleDto,
+                              BindingResult bindingResult,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<Literature> literatures = literatureService.findAll();
+
+            List<Book> books = literatures.stream()
+                    .filter(lit -> lit instanceof Book)
+                    .map(lit -> (Book) lit)
+                    .toList();
+
+            List<Article> articles = literatures.stream()
+                    .filter(lit -> lit instanceof Article)
+                    .map(lit -> (Article) lit)
+                    .toList();
+
+            model.addAttribute("books", books);
+            model.addAttribute("articles", articles);
+
+            model.addAttribute("formBook", new BookDto());
+            model.addAttribute("formArticle", articleDto);
+
+            return "documents/literatures-list";
+        }
+
+        Article article = new Article(articleDto);
+        literatureService.save(article);
+
+        return "redirect:/document/literatures";
+    }
+
 
 }

@@ -1,11 +1,11 @@
 package com.ustyn.courseproject.document.reader;
 
 import com.ustyn.courseproject.document.Ticket;
-import com.ustyn.courseproject.dto.ScientistDto;
+import com.ustyn.courseproject.dto.reader.ScientistDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -21,7 +21,7 @@ public class Scientist extends Reader{
     }
 
     public Scientist(ScientistDto dto) {
-        super(dto.getId(), dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
+        super(new ObjectId(dto.getId()), dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
         this.specialty = dto.getSpecialty();
     }
 }

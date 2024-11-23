@@ -4,6 +4,7 @@ import com.ustyn.courseproject.document.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Document(collection = "readers")
 public abstract class Reader {
     @Id
-    private String id;
+    private ObjectId id;
 
     private String name;
 
