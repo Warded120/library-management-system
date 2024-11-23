@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<html lang="uk" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,16 +36,34 @@
             <input class="nav-link btn btn-outline-danger me-2 px-4 m-1" type="submit" value="Вийти">
           </form>
         </li>
+        <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')">
+          <a class="nav-link dropdown-toggle btn btn-outline-primary me-2 px-4 m-1" href="#" id="navbarDropdownAggr"
+             role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Агрегації
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end me-2 px-4 m-1" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/aggregation/one}">1</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/two}">2</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/three}">3</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/four}">4</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/five}">5</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/six}">6</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/seven}">7</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/eight}">8</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/nine}">9</a></li>
+            <li><a class="dropdown-item" th:href="@{/aggregation/ten}">10</a></li>
+          </ul>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle btn btn-outline-primary me-2 px-4 m-1" href="#" id="navbarDropdown"
              role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Таблиці
           </a>
           <ul class="dropdown-menu dropdown-menu-end me-2 px-4 m-1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" th:href="@{/document/users}">Користувачі</a></li>
-            <li><a class="dropdown-item" th:href="@{/document/roles}">Ролі</a></li>
-            <li><a class="dropdown-item" th:href="@{/document/keys}">Ключі</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/document/users}">Користувачі</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/document/roles}">Ролі</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/document/keys}">Ключі</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" th:href="@{/document/readers}">Читачі</a></li>
             <li><a class="dropdown-item" th:href="@{/document/literatures}">Література</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -63,117 +82,98 @@
 <!-- Content -->
 <div class="container py-5">
 
-  <h2 class="text-center text-primary mb-4">Додати книгу</h2>
-  <form action="#" th:action="@{/document/literatures/book}" th:object="${formBook}" method="post">
-    <table class="table table-striped table-hover">
-      <thead class="table-primary">
-      <tr>
-        <th>ID</th>
-        <th>Назва</th>
-        <th>Автор</th>
-        <th>Інвентарний номер</th>
-        <th>К-сть сторінок</th>
-        <th>Доступність</th>
-        <th>Відправити</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{id}" placeholder="усталене значення" readonly>
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{title}" placeholder="Назва">
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{author}" placeholder="Автор">
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{inventoryNumber}" placeholder="Інвентарний номер">
-          </label>
-        </td>
-        <td>
-          <label>
-            <select class="form-control" th:field="*{available}">
-              <option value="true">Так</option>
-              <option value="false">Ні</option>
-            </select>
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="number" th:field="*{pages}" placeholder="К-сть сторінок">
-          </label>
-        </td>
-        <td><input class="btn btn-primary" type="submit" value="Відправити"></td>
-      </tr>
-      </tbody>
-    </table>
-  </form>
+  <!-- Add Book Section (Visible only to Admin) -->
+  <div sec:authorize="hasRole('ROLE_ADMIN')">
+    <h2 class="text-center text-primary mb-4">Додати книгу</h2>
+    <form action="#" th:action="@{/document/literatures/book}" th:object="${formBook}" method="post">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Назва</th>
+          <th>Автор</th>
+          <th>Інвентарний номер</th>
+          <th>К-сть сторінок</th>
+          <th>Доступність</th>
+          <th>Відправити</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <label>
+              <input class="form-control" type="text" th:field="*{id}" placeholder="усталене значення" readonly>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input class="form-control" type="text" th:field="*{title}" placeholder="Назва">
+            </label>
+          </td>
+          <td>
+            <label>
+              <input class="form-control" type="text" th:field="*{author}" placeholder="Автор">
+            </label>
+          </td>
+          <td>
+            <label>
+              <input class="form-control" type="text" th:field="*{inventoryNumber}" placeholder="Інвентарний номер">
+            </label>
+          </td>
+          <td>
+            <label>
+              <select class="form-control" th:field="*{available}"><option value="true">Так</option><option value="false">Ні</option></select>
+            </label>
+          </td>
+          <td>
+            <label>
+              <input class="form-control" type="number" th:field="*{pages}" placeholder="К-сть сторінок">
+            </label>
+          </td>
+          <td>
+            <input class="btn btn-primary" type="submit" value="Відправити">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
 
-  <h2 class="text-center text-primary mb-4">Додати статтю</h2>
-  <form action="#" th:action="@{/document/literatures/article}" th:object="${formArticle}" method="post">
-    <table class="table table-striped table-hover">
-      <thead class="table-primary">
-      <tr>
-        <th>ID</th>
-        <th>Назва</th>
-        <th>Автор</th>
-        <th>Інвентарний номер</th>
-        <th>Доступність</th>
-        <th>Дата публікації</th>
-        <th>Відправити</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{id}" placeholder="усталене значення" readonly>
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{title}" placeholder="Назва">
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{author}" placeholder="Автор">
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="text" th:field="*{inventoryNumber}" placeholder="Інвентарний номер">
-          </label>
-        </td>
-        <td>
-          <label>
-            <select class="form-control" th:field="*{available}">
-              <option value="true">Так</option>
-              <option value="false">Ні</option>
-            </select>
-          </label>
-        </td>
-        <td>
-          <label>
-            <input class="form-control" type="date" th:field="*{publishDate}">
-          </label>
-        </td>
-        <td><input class="btn btn-primary" type="submit" value="Відправити"></td>
-      </tr>
-      </tbody>
-    </table>
-  </form>
+  <!-- Add Article Section (Visible only to Admin) -->
+  <div sec:authorize="hasRole('ROLE_ADMIN')">
+    <h2 class="text-center text-primary mb-4">Додати статтю</h2>
+    <form action="#" th:action="@{/document/literatures/article}" th:object="${formArticle}" method="post">
+      <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Назва</th>
+          <th>Автор</th>
+          <th>Інвентарний номер</th>
+          <th>Доступність</th>
+          <th>Дата публікації</th>
+          <th>Відправити</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><input class="form-control" type="text" th:field="*{id}" placeholder="усталене значення" readonly></td>
+          <td><input class="form-control" type="text" th:field="*{title}" placeholder="Назва"></td>
+          <td><input class="form-control" type="text" th:field="*{author}" placeholder="Автор"></td>
+          <td><input class="form-control" type="text" th:field="*{inventoryNumber}" placeholder="Інвентарний номер"></td>
+          <td><select class="form-control" th:field="*{available}"><option value="true">Так</option><option value="false">Ні</option></select></td>
+          <td><input class="form-control" type="date" th:field="*{publishDate}"></td>
+          <td><input class="btn btn-primary" type="submit" value="Відправити"></td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
 
+  <!-- Book List (Visible for all roles) -->
   <h2 class="text-center text-primary mb-4">Список літератури</h2>
+
+  <!-- Books Section -->
   <div class="table-responsive mb-5">
     <h4 class="text-center text-secondary">Книги</h4>
     <table class="table table-striped table-hover">
@@ -185,8 +185,8 @@
         <th>Інвентарний номер</th>
         <th>Доступність</th>
         <th>К-сть сторінок</th>
-        <th>Редагування</th>
-        <th>Видалення</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">Редагування</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">Видалення</th>
       </tr>
       </thead>
       <tbody>
@@ -195,15 +195,12 @@
         <td th:text="${book.title}"></td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.inventoryNumber}"></td>
-        <td>
-          <span th:if="${book.available}" class="badge bg-success">Так</span>
-          <span th:if="${!book.available}" class="badge bg-danger">Ні</span>
-        </td>
+        <td><span th:if="${book.available}" class="badge bg-success">Так</span><span th:if="${!book.available}" class="badge bg-danger">Ні</span></td>
         <td th:text="${book.pages}"></td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
           <a th:href="@{/document/literatures/book/{id}(id=${book.id})}" class="btn btn-primary">Редагувати</a>
         </td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
           <form th:action="@{/document/literatures/book/{id}(id=${book.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <input type="submit" class="btn btn-danger" value="Видалити">
@@ -214,6 +211,7 @@
     </table>
   </div>
 
+  <!-- Articles Section -->
   <div class="table-responsive">
     <h4 class="text-center text-secondary">Статті</h4>
     <table class="table table-striped table-hover">
@@ -225,8 +223,8 @@
         <th>Інвентарний номер</th>
         <th>Доступність</th>
         <th>Дата публікації</th>
-        <th>Редагування</th>
-        <th>Видалення</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">Редагування</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">Видалення</th>
       </tr>
       </thead>
       <tbody>
@@ -235,15 +233,12 @@
         <td th:text="${article.title}"></td>
         <td th:text="${article.author}"></td>
         <td th:text="${article.inventoryNumber}"></td>
-        <td>
-          <span th:if="${article.available}" class="badge bg-success">Так</span>
-          <span th:if="${!article.available}" class="badge bg-danger">Ні</span>
-        </td>
+        <td><span th:if="${article.available}" class="badge bg-success">Так</span><span th:if="${!article.available}" class="badge bg-danger">Ні</span></td>
         <td th:text="${article.publishDate}"></td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
           <a th:href="@{/document/literatures/article/{id}(id=${article.id})}" class="btn btn-primary">Редагувати</a>
         </td>
-        <td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
           <form th:action="@{/document/literatures/article/{id}(id=${article.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <input type="submit" class="btn btn-danger" value="Видалити">
@@ -253,6 +248,8 @@
       </tbody>
     </table>
   </div>
+
 </div>
+
 </body>
 </html>

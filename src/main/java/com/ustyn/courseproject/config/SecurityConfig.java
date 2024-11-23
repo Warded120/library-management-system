@@ -20,7 +20,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
-                        .anyRequest().permitAll()
+                        .requestMatchers("/home", "/about-us").authenticated()
+                        .requestMatchers("/document/users/**").hasRole("ADMIN")
+                        .requestMatchers("/aggregation/**").hasAnyRole("ADMIN", "OPERATOR")
+                        .requestMatchers("/login", "/forgot-password").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
