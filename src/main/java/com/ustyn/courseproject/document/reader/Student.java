@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -22,7 +23,7 @@ public class Student extends Reader {
     }
 
     public Student(StudentDto dto) {
-        super(dto.getId(), dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
+        super(new ObjectId(dto.getId()), dto.getName(), dto.getAddress(), dto.getTicketId(), dto.getLastVisitDate());
         this.institution = dto.getInstitution();
     }
 }

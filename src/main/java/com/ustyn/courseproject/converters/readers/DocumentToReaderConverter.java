@@ -29,7 +29,7 @@ public class DocumentToReaderConverter implements Converter<Document, Reader> {
     }
 
     private void setCommonFields(Document source, Reader reader) {
-        reader.setId(source.getObjectId("_id").toString());
+        reader.setId(source.getObjectId("_id"));
         reader.setName(source.getString("name"));
         reader.setAddress(source.getString("address"));
         reader.setTicketId(source.getString("ticketId"));

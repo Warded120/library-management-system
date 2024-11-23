@@ -1,4 +1,4 @@
-package com.ustyn.courseproject.validation.age;
+package com.ustyn.courseproject.validation.inPast;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = AgeConstraintValidator.class)
+@Constraint(validatedBy = InPastConstraintValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InPast {
