@@ -1,12 +1,10 @@
 package com.ustyn.courseproject.document.reader;
 
 import com.ustyn.courseproject.document.Ticket;
-import com.ustyn.courseproject.dto.ScientistDto;
-import com.ustyn.courseproject.dto.StudentDto;
+import com.ustyn.courseproject.dto.reader.StudentDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;

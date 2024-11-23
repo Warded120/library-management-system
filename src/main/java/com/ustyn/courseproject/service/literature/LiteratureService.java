@@ -9,4 +9,6 @@ public interface LiteratureService {
     boolean existsByTitle(String title);
     List<Literature> findAll();
     Literature findByTitle(String title);
+    Literature findById(String id);
+    void deleteById(String id);
 }

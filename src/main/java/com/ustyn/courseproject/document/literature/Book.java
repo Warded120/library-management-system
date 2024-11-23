@@ -1,5 +1,6 @@
 package com.ustyn.courseproject.document.literature;
 
+import com.ustyn.courseproject.dto.literature.BookDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,10 @@ public class Book extends Literature {
     public Book(String title, String author, String inventoryNumber, boolean available, int pages) {
         super(title, author, inventoryNumber, available);
         this.pages = pages;
+    }
+
+    public Book(BookDto bookDto) {
+        super(bookDto.getId(), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getInventoryNumber(), bookDto.isAvailable());
+        this.pages = bookDto.getPages();
     }
 }

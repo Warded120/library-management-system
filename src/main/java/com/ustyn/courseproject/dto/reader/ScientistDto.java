@@ -1,6 +1,6 @@
-package com.ustyn.courseproject.dto;
+package com.ustyn.courseproject.dto.reader;
 
-import com.ustyn.courseproject.document.reader.Student;
+import com.ustyn.courseproject.document.reader.Scientist;
 import com.ustyn.courseproject.validation.inPast.InPast;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Data
-public class StudentDto {
+public class ScientistDto {
     private String id;
 
     @NotNull(message = "обов'язково")
@@ -28,14 +28,14 @@ public class StudentDto {
     private LocalDate lastVisitDate;
 
     @NotNull(message = "обов'язково")
-    private String institution;
+    private String specialty;
 
-    public StudentDto(Student student) {
-        this.id = student.getId().toString();
-        this.name = student.getName();
-        this.address = student.getAddress();
-        this.ticketId = student.getTicketId();
-        this.lastVisitDate = student.getLastVisitDate();
-        this.institution = student.getInstitution();
+    public ScientistDto(Scientist scientist) {
+        this.id = scientist.getId().toString();
+        this.name = scientist.getName();
+        this.address = scientist.getAddress();
+        this.ticketId = scientist.getTicketId();
+        this.lastVisitDate = scientist.getLastVisitDate();
+        this.specialty = scientist.getSpecialty();
     }
 }
