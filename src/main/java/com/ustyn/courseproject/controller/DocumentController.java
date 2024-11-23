@@ -9,17 +9,20 @@ import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.document.reader.Scientist;
 import com.ustyn.courseproject.document.reader.Student;
 import com.ustyn.courseproject.document.user.User;
+import com.ustyn.courseproject.dto.library.LibraryStaffDto;
 import com.ustyn.courseproject.dto.reader.ScientistDto;
 import com.ustyn.courseproject.dto.reader.StudentDto;
 import com.ustyn.courseproject.dto.UserDto;
 import com.ustyn.courseproject.dto.literature.ArticleDto;
 import com.ustyn.courseproject.dto.literature.BookDto;
 import com.ustyn.courseproject.repository.KeyRepository;
+import com.ustyn.courseproject.service.libraryStaff.LibraryStaffService;
 import com.ustyn.courseproject.service.literature.LiteratureService;
 import com.ustyn.courseproject.service.reader.ReaderService;
 import com.ustyn.courseproject.service.role.RoleService;
 import com.ustyn.courseproject.service.user.UserService;
 import jakarta.validation.Valid;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -27,31 +30,32 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/document")
 public class DocumentController {
 
-    UserService userService;
-    RoleService roleService;
-    KeyRepository keyRepository;
-    ReaderService readerService;
-    LiteratureService literatureService;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final KeyRepository keyRepository;
+    private final ReaderService readerService;
+    private final LiteratureService literatureService;
+    private final LibraryStaffService libraryStaffService;
 
     @Autowired
     public DocumentController(UserService userService,
                               RoleService roleService,
                               KeyRepository keyRepository,
                               ReaderService readerService,
-                              LiteratureService literatureService) {
+                              LiteratureService literatureService,
+                              LibraryStaffService libraryStaffService) {
         this.userService = userService;
         this.roleService = roleService;
         this.keyRepository = keyRepository;
         this.readerService = readerService;
         this.literatureService = literatureService;
+        this.libraryStaffService = libraryStaffService;
     }
 
     @InitBinder
@@ -465,9 +469,45 @@ public class DocumentController {
     // library-staff mappings
     @GetMapping("/library-staffs")
     public String libraryStaffs(Model model) {
-        model.addAttribute("libraryStaffs", new ArrayList<LibraryStaff>());
+
+        model.addAttribute("libraryStaffs", libraryStaffService.findAll());
         model.addAttribute("formLibraryStaff", new LibraryStaff());
 
         return "documents/library-staffs-list";
+    }
+
+    @GetMapping("/library-staffs/{id}")
+    public String updateLibraryStaff(@PathVariable String id, Model model) {
+
+        model.addAttribute("libraryStaffs", libraryStaffService.findAll());
+        model.addAttribute("formLibraryStaff", new LibraryStaffDto(libraryStaffService.findById(new ObjectId(id))));
+
+        return "documents/library-staffs-list";
+
+    }
+
+    @PostMapping("/library-staffs/{id}")
+    public String deleteLibraryStaff(@PathVariable String id) {
+        libraryStaffService.deleteById(new ObjectId(id));
+
+        return "redirect:/document/library-staffs";
+    }
+
+    @PostMapping("/library-staffs")
+    public String saveLibraryStaff(@Valid @ModelAttribute("formLibraryStaff") LibraryStaffDto libraryStaffDto,
+                                   BindingResult bindingResult,
+                                   Model model) {
+        if(bindingResult.hasErrors()) {
+
+            model.addAttribute("libraryStaffs", libraryStaffService.findAll());
+            model.addAttribute("formLibraryStaff", libraryStaffDto);
+
+            return "documents/library-staffs-list";
+        }
+
+        LibraryStaff libraryStaff = new LibraryStaff(libraryStaffDto);
+        libraryStaffService.save(libraryStaff);
+
+        return "redirect:/document/library-staffs";
     }
 }

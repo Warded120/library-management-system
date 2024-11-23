@@ -1,9 +1,9 @@
 package com.ustyn.courseproject.repository;
 
-import com.ustyn.courseproject.document.Ticket;
+import com.ustyn.courseproject.document.library.LibraryStaff;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TicketRepository extends MongoRepository<Ticket, String> {
+public interface LibraryStaffRepository extends MongoRepository<LibraryStaff, String> {
 }

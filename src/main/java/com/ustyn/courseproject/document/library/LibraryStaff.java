@@ -1,7 +1,9 @@
 package com.ustyn.courseproject.document.library;
 
+import com.ustyn.courseproject.dto.library.LibraryStaffDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,9 +13,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "libraryStaffs")
 public class LibraryStaff {
     @Id
-    private String id;
+    private ObjectId id;
 
-    @Field(value = "name")
     private String name;
 
+    public LibraryStaff(LibraryStaffDto libraryStaffDto) {
+        this.id = new ObjectId(libraryStaffDto.getId());
+        this.name = libraryStaffDto.getName();
+    }
 }
