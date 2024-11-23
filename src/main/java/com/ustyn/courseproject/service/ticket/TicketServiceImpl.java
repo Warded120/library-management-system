@@ -1,6 +1,7 @@
 package com.ustyn.courseproject.service.ticket;
 
 import com.ustyn.courseproject.document.Ticket;
+import com.ustyn.courseproject.document.reader.Reader;
 import com.ustyn.courseproject.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

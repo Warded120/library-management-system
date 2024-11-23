@@ -10,4 +10,5 @@ public interface LibraryStaffService {
     List<LibraryStaff> findAll();
     LibraryStaff findById(ObjectId id);
     void deleteById(ObjectId id);
+    boolean existsByName(String name);
 }

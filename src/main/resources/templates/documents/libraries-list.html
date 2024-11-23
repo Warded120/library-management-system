@@ -108,9 +108,9 @@
       <tr>
         <th>ID</th>
         <th>Назва</th>
-        <th>Кількість літератури</th>
-        <th>Кількість співробітників</th>
-        <th>Кількість читачів</th>
+        <th>Література</th>
+        <th>Співробітники</th>
+        <th>Читачі</th>
         <th>Редагувати</th>
         <th>Видалити</th>
       </tr>
@@ -119,9 +119,21 @@
       <tr th:each="library : ${libraries}">
         <td th:text="${library.id}">1</td>
         <td th:text="${library.name}">Бібліотека №1</td>
-        <td th:text="${#lists.size(library.literatures)}">10</td>
-        <td th:text="${#lists.size(library.libraryStaffs)}">5</td>
-        <td th:text="${#lists.size(library.readers)}">50</td>
+        <td>
+          <ul>
+            <li th:each="lit : ${library.literatures}" th:text="${lit.title}"></li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li th:each="libStaff : ${library.libraryStaffs}" th:text="${libStaff.name}"></li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li th:each="reader : ${library.readers}" th:text="${reader.name}"></li>
+          </ul>
+        </td>
         <td>
           <a th:href="@{/document/libraries/{id}(id=${library.id})}" class="btn btn-primary">Редагувати</a>
         </td>

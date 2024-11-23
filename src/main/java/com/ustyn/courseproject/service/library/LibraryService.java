@@ -8,4 +8,5 @@ public interface LibraryService {
     List<Library> findAll();
     Library findById(String id);
     void deleteById(String id);
+    boolean existsByName(String name);
 }

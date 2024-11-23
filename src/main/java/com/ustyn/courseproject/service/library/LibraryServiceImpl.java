@@ -49,4 +49,9 @@ public class LibraryServiceImpl implements LibraryService {
     public void deleteById(String id) {
         libraryRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return libraryRepository.existsByName(name);
+    }
 }

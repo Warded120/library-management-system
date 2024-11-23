@@ -35,4 +35,9 @@ public class LibraryStaffServiceImpl implements LibraryStaffService {
     public void deleteById(ObjectId id) {
         libraryStaffRepository.deleteById(id.toString());
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return libraryStaffRepository.existsByName(name);
+    }
 }

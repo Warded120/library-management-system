@@ -21,4 +21,8 @@ public class LibraryStaff {
         this.id = dto.getId() != null ? new ObjectId(dto.getId()) : new ObjectId();
         this.name = dto.getName();
     }
+
+    public LibraryStaff(String name) {
+        this.name = name;
+    }
 }
