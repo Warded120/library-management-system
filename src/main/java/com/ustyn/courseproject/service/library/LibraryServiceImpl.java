@@ -2,7 +2,6 @@ package com.ustyn.courseproject.service.library;
 
 import com.ustyn.courseproject.document.library.Library;
 import com.ustyn.courseproject.repository.LibraryRepository;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +16,9 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public Library save(Library library) {
+
+
+
         return libraryRepository.save(library);
     }
 
@@ -26,12 +28,12 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Library findById(ObjectId id) {
+    public Library findById(String id) {
         return libraryRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void deleteById(ObjectId id) {
+    public void deleteById(String id) {
         libraryRepository.deleteById(id);
     }
 }

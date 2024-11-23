@@ -530,6 +530,22 @@ public class DocumentController {
         return "documents/libraries-list";
     }
 
+    @GetMapping("/libraries/{id}")
+    public String updateLibrary(@PathVariable String id, Model model) {
+        model.addAttribute("libraries", libraryService.findAll());
+        model.addAttribute("formLibrary", libraryService.findById(id));
+
+        return "documents/libraries-list";
+    }
+
+    @PostMapping("/libraries/{id}")
+    public String deleteLibrary(@PathVariable String id) {
+        libraryService.deleteById(id);
+
+        return "redirect:/document/libraries";
+    }
+
+
     @PostMapping("/libraries")
     public String saveLibrary(@Valid @ModelAttribute("formLibrary") LibraryDto libraryDto,
                               BindingResult bindingResult,
