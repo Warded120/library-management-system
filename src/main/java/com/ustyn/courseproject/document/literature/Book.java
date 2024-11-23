@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Book extends Literature {
     }
 
     public Book(BookDto bookDto) {
-        super(bookDto.getId(), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getInventoryNumber(), bookDto.isAvailable());
+        super(new ObjectId(bookDto.getId()), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getInventoryNumber(), bookDto.isAvailable());
         this.pages = bookDto.getPages();
     }
 }

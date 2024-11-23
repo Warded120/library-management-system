@@ -32,7 +32,7 @@ public class ArticleDto {
     private LocalDate publishDate;
 
     public ArticleDto(Article article) {
-        this.id = article.getId();
+        this.id = article.getId().toString();
         this.title = article.getTitle();
         this.author = article.getAuthor();
         this.inventoryNumber = article.getInventoryNumber();

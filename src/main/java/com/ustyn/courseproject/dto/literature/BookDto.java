@@ -27,7 +27,7 @@ public class BookDto {
     private int pages;
 
     public BookDto(Book book) {
-        this.id = book.getId();
+        this.id = book.getId().toString();
         this.title = book.getTitle();
         this.author = book.getAuthor();
         this.inventoryNumber = book.getInventoryNumber();

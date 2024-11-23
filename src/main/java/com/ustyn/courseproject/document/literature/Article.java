@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -21,7 +22,7 @@ public class Article extends Literature {
     }
 
     public Article(ArticleDto articleDto) {
-        super(articleDto.getId(), articleDto.getTitle(), articleDto.getAuthor(), articleDto.getInventoryNumber(), articleDto.isAvailable());
+        super(new ObjectId(articleDto.getId()), articleDto.getTitle(), articleDto.getAuthor(), articleDto.getInventoryNumber(), articleDto.isAvailable());
         this.publishDate = articleDto.getPublishDate();
     }
 }

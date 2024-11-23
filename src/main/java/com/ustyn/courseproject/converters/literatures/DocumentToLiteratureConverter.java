@@ -31,7 +31,7 @@ public class DocumentToLiteratureConverter implements Converter<Document, Litera
     }
 
     private void setCommonFields(Document source, Literature literature) {
-        literature.setId(source.getObjectId("_id").toString());
+        literature.setId(source.getObjectId("_id"));
         literature.setTitle(source.getString("title"));
         literature.setAuthor(source.getString("author"));
         literature.setInventoryNumber(source.getString("inventoryNumber"));

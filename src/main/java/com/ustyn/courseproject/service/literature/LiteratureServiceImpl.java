@@ -27,7 +27,7 @@ public class LiteratureServiceImpl implements LiteratureService {
     public Literature save(Literature literature) {
         Optional<Literature> existingLiteratureOpt = Optional.empty();
         if (literature.getId() != null) {
-            existingLiteratureOpt = literatureRepository.findById(literature.getId());
+            existingLiteratureOpt = literatureRepository.findById(literature.getId().toString());
         }
 
         if (existingLiteratureOpt.isPresent()) {
