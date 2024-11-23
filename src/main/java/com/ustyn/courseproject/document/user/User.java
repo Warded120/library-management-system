@@ -43,9 +43,9 @@ public class User {
     public User(UserDto userDto) {
         this.id = userDto.getId();
         this.username = userDto.getUsername();
-        this.password = new Key(userDto.getPassword());
+        this.password = new Key(userDto.getPasswordId(), userDto.getPassword());
         this.enabled = userDto.isEnabled();
-        this.roles = List.of(new Role(userDto.getRole()));
+        this.roles = List.of(new Role(userDto.getRoleId(), userDto.getRole()));
     }
 }
 

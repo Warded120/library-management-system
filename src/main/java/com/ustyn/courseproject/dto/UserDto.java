@@ -20,17 +20,23 @@ public class UserDto {
     @Unique
     private String username = "";
 
+    private String passwordId;
+
     @NotNull(message = "обов'язково")
     private String password = "";
 
     private boolean enabled = true;
+
+    private String roleId;
     private String role = Roles.ROLE_GUEST.getValue();
 
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.passwordId = user.getPassword().getId();
         this.password = user.getPassword().getPassword();
         this.enabled = user.isEnabled();
+        this.roleId = user.getRoles().getFirst().getId();
         this.role = user.getRoles().getFirst().getName();
     }
 }

@@ -92,6 +92,7 @@
             </div>
           </td>
           <td>
+            <input id="userPasswordId" type="hidden" th:field="*{passwordId}">
             <label>
               <input id="userPassword" class="form-control" type="text" placeholder="Test123" th:field="*{password}">
             </label>
@@ -111,6 +112,7 @@
             </div>
           </td>
           <td>
+            <input type="hidden" th:field="*{roleId}">
             <label>
               <select id="userRole" name="userRole" class="form-control mx-1" th:field="*{role}">
                 <option th:each="role: ${roles}" th:value="${role}" th:text="${role}">Роль</option>
