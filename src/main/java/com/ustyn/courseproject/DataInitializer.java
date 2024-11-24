@@ -84,6 +84,7 @@ public class DataInitializer implements CommandLineRunner {
     private void addReaders() {
 
         if (!readerService.existsByName("Олександр Петренко")) {
+
             Ticket ticket = new Ticket(List.of(literatureService.findByTitle("Кобзар")));
             Ticket savedTicket = ticketService.save(ticket);
 

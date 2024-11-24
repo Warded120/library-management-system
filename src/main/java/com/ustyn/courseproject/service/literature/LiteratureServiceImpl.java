@@ -77,4 +77,9 @@ public class LiteratureServiceImpl implements LiteratureService {
     public void deleteById(String id) {
         literatureRepository.deleteById(id);
     }
+
+    @Override
+    public List<Literature> findAllByAuthor(String author) {
+        return literatureRepository.findAllByAuthor(author);
+    }
 }

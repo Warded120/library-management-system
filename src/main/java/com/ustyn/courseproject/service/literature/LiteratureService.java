@@ -11,4 +11,5 @@ public interface LiteratureService {
     Literature findByTitle(String title);
     Literature findById(String id);
     void deleteById(String id);
+    List<Literature> findAllByAuthor(String author);
 }

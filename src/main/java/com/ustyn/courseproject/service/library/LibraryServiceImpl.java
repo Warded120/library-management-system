@@ -1,10 +1,13 @@
 package com.ustyn.courseproject.service.library;
 
 import com.ustyn.courseproject.document.library.Library;
+import com.ustyn.courseproject.document.library.LibraryStaff;
 import com.ustyn.courseproject.document.literature.Literature;
 import com.ustyn.courseproject.repository.LibraryRepository;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,5 +56,15 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public boolean existsByName(String name) {
         return libraryRepository.existsByName(name);
+    }
+
+    @Override
+    public List<LibraryStaff> findStaffByLibraryId(ObjectId libraryId) {
+        Optional<Library> library = libraryRepository.findById(libraryId.toString());
+
+        if (library.isPresent()) {
+            return library.get().getLibraryStaffs();
+        }
+        return new ArrayList<>();
     }
 }
